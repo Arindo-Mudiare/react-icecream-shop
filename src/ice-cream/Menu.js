@@ -26,6 +26,9 @@ const Menu = ({history}) => {
   const onItemClickHandler = to => {
       history.push(to);
   }
+  const onLinkClickHandler = e => {
+      e.stopPropagation();
+  } 
 
   return (
     <main className="main">
@@ -54,7 +57,12 @@ const Menu = ({history}) => {
                     <IceCreamImage iceCreamId={iceCream.id} />
                   </div>
                   <div className="card_content">
-                    <h3 className="card_title"><Link to={`/menu-items/${id.toString()}`}>{iceCream.name}</Link></h3>
+                    <h3 className="card_title"><Link 
+                    to={`/menu-items/${id.toString()}`}
+                    onClick={onLinkClickHandler}
+                    >
+                    {iceCream.name}</Link>
+                    </h3>
                     <div className="card_text">
                       <p className="price">{`$${price.toFixed(2)}`}</p>
                       <p className={`stock${inStock ? '' : ' out'}`}>
