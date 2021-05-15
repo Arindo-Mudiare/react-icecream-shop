@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Helmet from 'react-helmet';
 import LoaderMessage from '../structure/LoaderMessage';
-import { getMenuItem } from '../data/iceCreamData';
+import { getMenuItem, putMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -64,6 +64,24 @@ const EditIceCream = ({ match, history }) => {
     setMenuItem(newMenuItemData);
   };
 
+  const onSubmitHandler = e => {
+    e.preventDefault();
+
+    const { id, price, inStock, quantity, description, iceCream } = menuItem;
+
+    const submitItem = {
+      id,
+      iceCream: { id: iceCream.id },
+      price: parseFloat(price),
+      inStock,
+      quantity: parseInt(quantity),
+      description,
+    };
+    putMenuItem(submitItem).then(() => {
+      history.push('/');
+    });
+  };
+
   return (
     <main>
       <Helmet>
@@ -86,7 +104,7 @@ const EditIceCream = ({ match, history }) => {
               <dt>Name :</dt>
               <dd>{menuItem.iceCream.name}</dd>
             </dl>
-            <form className="form-horizontal">
+            <form className="form-horizontal" onSubmit={onSubmitHandler}>
               <div>
                 <div className="form-group">
                   <label className="control-label col-sm-4" htmlFor="">
