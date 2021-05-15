@@ -4,7 +4,7 @@ import LoaderMessage from '../structure/LoaderMessage';
 import { getMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EditIceCream = ({ match, history }) => {
   const isMounted = useRef(true);
@@ -46,6 +46,24 @@ const EditIceCream = ({ match, history }) => {
       });
   }, [match.params.menuItemId, history]);
 
+  const onChangeHandler = e => {
+    let newMenuItemData = {
+      ...menuItem,
+      [e.target.name]:
+        e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+    };
+
+    if (e.target.name === 'quantity') {
+      newMenuItemData.inStock = e.target.value !== '0';
+    }
+
+    if (e.target.name === 'inStock' && !e.target.checked) {
+      newMenuItemData.quantity = '0';
+    }
+
+    setMenuItem(newMenuItemData);
+  };
+
   return (
     <main>
       <Helmet>
@@ -79,7 +97,8 @@ const EditIceCream = ({ match, history }) => {
                       name="description"
                       rows="3"
                       className="form-control"
-                      value="description"
+                      value={menuItem.description}
+                      onChange={onChangeHandler}
                     ></textarea>
                   </div>
                 </div>
@@ -93,6 +112,7 @@ const EditIceCream = ({ match, history }) => {
                       name="inStock"
                       className="form-check-input"
                       checked={menuItem.inStock}
+                      onChange={onChangeHandler}
                     />
                     <div className="checkbox-wrapper-checked"></div>
                   </div>
@@ -106,6 +126,7 @@ const EditIceCream = ({ match, history }) => {
                       name="quantity"
                       className="form-control"
                       value={menuItem.quantity}
+                      onChange={onChangeHandler}
                     >
                       <option value="0">0</option>
                       <option value="10">10</option>
@@ -127,6 +148,7 @@ const EditIceCream = ({ match, history }) => {
                       step="0.01"
                       className="form-control"
                       value={menuItem.price}
+                      onChange={onChangeHandler}
                     />
                   </div>
                 </div>
