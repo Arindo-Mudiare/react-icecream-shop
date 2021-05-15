@@ -68,7 +68,52 @@ const EditIceCream = ({ match, history }) => {
             </dl>
             <form>
               <label htmlFor="">Description :</label>
-              <textarea name="description" rows="3"></textarea>
+              <textarea
+                name="description"
+                rows="3"
+                value={menuItem.description}
+              ></textarea>
+              <label className="form-check-label" htmlFor="">
+                In Stock :
+              </label>
+              <input
+                type="checkbox"
+                name="inStock"
+                className="form-check-input"
+                checked={menuItem.inStock}
+              />
+              <div className="checkbox-wrapper-checked"></div>
+              <label className="control-label" htmlFor="">
+                Quantity
+              </label>
+              <select
+                name="quantity"
+                className="form-control"
+                value={menuItem.quantity}
+              >
+                <option value="0">0</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+              <label className="control-label col-sm-4" htmlFor="">
+                Price :
+              </label>
+              <input
+                type="number"
+                name="price"
+                step="0.01"
+                className="form-control"
+                value={menuItem.price}
+              />
+              <button
+                className="btn btn-danger mt-2 form-control"
+                type="submit"
+              >
+                Save
+              </button>
             </form>
           </div>
         </div>
