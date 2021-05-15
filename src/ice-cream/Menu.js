@@ -3,10 +3,10 @@ import { getMenu } from '../data/iceCreamData';
 import Helmet from 'react-helmet';
 import IceCreamImage from '../ice-cream/IceCreamImage';
 import LoaderMessage from '../structure/LoaderMessage';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 
-const Menu = ({history}) => {
+const Menu = ({ history }) => {
   const [menu, setMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,11 +24,11 @@ const Menu = ({history}) => {
   }, []);
 
   const onItemClickHandler = to => {
-      history.push(to);
-  }
+    history.push(to);
+  };
   const onLinkClickHandler = e => {
-      e.stopPropagation();
-  } 
+    e.stopPropagation();
+  };
 
   return (
     <main className="main">
@@ -37,7 +37,9 @@ const Menu = ({history}) => {
           Rock your taste buds with one of these | Ultimate Ice Jollof
         </title>
       </Helmet>
-      <h1 className="main-heading">Rock your taste buds with one of these</h1>
+      <h3 className="main-heading text-center">
+        Rock your taste buds with one of these
+      </h3>
       <LoaderMessage
         loadingMessage="Loading Menu..."
         isLoading={isLoading}
@@ -48,20 +50,23 @@ const Menu = ({history}) => {
           {menu.map(
             ({ id, iceCream, price, description, inStock, quantity }) => (
               <li className="cards_item" key={id.toString()}>
-                <section 
-                className="card"
-                onClick={()=> {
-                  onItemClickHandler(`/menu-items/${id.toString()}`)
-                }} >
+                <section
+                  className="card"
+                  onClick={() => {
+                    onItemClickHandler(`/menu-items/${id.toString()}`);
+                  }}
+                >
                   <div className="card_image">
                     <IceCreamImage iceCreamId={iceCream.id} />
                   </div>
                   <div className="card_content">
-                    <h3 className="card_title"><Link 
-                    to={`/menu-items/${id.toString()}`}
-                    onClick={onLinkClickHandler}
-                    >
-                    {iceCream.name}</Link>
+                    <h3 className="card_title">
+                      <Link
+                        to={`/menu-items/${id.toString()}`}
+                        onClick={onLinkClickHandler}
+                      >
+                        {iceCream.name}
+                      </Link>
                     </h3>
                     <div className="card_text">
                       <p className="price">{`$${price.toFixed(2)}`}</p>
@@ -87,8 +92,8 @@ const Menu = ({history}) => {
 
 Menu.propTypes = {
   history: propTypes.shape({
-    push: propTypes.func.isRequired
-  })
-}
+    push: propTypes.func.isRequired,
+  }),
+};
 
 export default Menu;

@@ -16,6 +16,7 @@ const App = () => {
   return (
     <Router>
       <Header />
+
       <Switch>
         <Route path="/" component={Menu} exact />
         <Route path="/menu-items/:menuItemId" component={EditIceCream} />
