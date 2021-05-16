@@ -1,6 +1,6 @@
 import React from 'react';
 import iceCreamImg from '../assets/img/ultimate-ice-cream.svg';
-import { NavLink } from 'react-router-dom';
+import FocusLink from '../structure/FocusLink';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
@@ -12,14 +12,14 @@ const Header = () => {
       </h1>
       <nav className="navbar navbar-light bg-light col-sm-8 position-relative top-100 start-50 translate-middle mt-4">
         <div className="container">
-          <NavLink
+          <FocusLink
             to="/"
             className="navbar-brand"
             activeClassName="active"
             exact
           >
             Menu
-          </NavLink>
+          </FocusLink>
         </div>
       </nav>
     </header>

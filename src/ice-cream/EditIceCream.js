@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Helmet from 'react-helmet';
 import LoaderMessage from '../structure/LoaderMessage';
 import { getMenuItem, putMenuItem } from '../data/iceCreamData';
 import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import useUniqueIds from '../hooks/useUniqueIds';
+import Main from '../structure/Main';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EditIceCream = ({ match, history }) => {
   const isMounted = useRef(true);
@@ -16,6 +17,7 @@ const EditIceCream = ({ match, history }) => {
     iceCream: {},
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [descriptionId, stockId, quantityId, priceId] = useUniqueIds(4);
 
   useEffect(() => {
     return () => {
@@ -41,7 +43,7 @@ const EditIceCream = ({ match, history }) => {
       })
       .catch(err => {
         if (err.response.status === 404 && isMounted.current) {
-          history.replace('/');
+          history.replace('/', { focus: true });
         }
       });
   }, [match.params.menuItemId, history]);
@@ -78,16 +80,12 @@ const EditIceCream = ({ match, history }) => {
       description,
     };
     putMenuItem(submitItem).then(() => {
-      history.push('/');
+      history.push('/', { focus: true });
     });
   };
 
   return (
-    <main>
-      <Helmet>
-        <title>Update this Jollof | Ultimate Jollof</title>
-      </Helmet>
-      <h3 className="text-center">Update this Jollof</h3>
+    <Main headingText="Update this Jollof" headingLevel="4">
       <LoaderMessage
         loadingMessage="Loading ice cream"
         doneMessage="Ice cream loaded"
@@ -107,11 +105,15 @@ const EditIceCream = ({ match, history }) => {
             <form className="form-horizontal" onSubmit={onSubmitHandler}>
               <div>
                 <div className="form-group">
-                  <label className="control-label col-sm-4" htmlFor="">
+                  <label
+                    className="control-label col-sm-4"
+                    htmlFor={descriptionId}
+                  >
                     Description:
                   </label>
                   <div className="">
                     <textarea
+                      id={descriptionId}
                       name="description"
                       rows="3"
                       className="form-control"
@@ -121,11 +123,12 @@ const EditIceCream = ({ match, history }) => {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="form-check-label" htmlFor="">
+                  <label className="form-check-label" htmlFor={stockId}>
                     In Stock :
                   </label>
                   <div className="">
                     <input
+                      id={stockId}
                       type="checkbox"
                       name="inStock"
                       className="form-check-input"
@@ -136,11 +139,12 @@ const EditIceCream = ({ match, history }) => {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label" htmlFor="">
+                  <label className="control-label" htmlFor={quantityId}>
                     Quantity
                   </label>
                   <div className="">
                     <select
+                      id={quantityId}
                       name="quantity"
                       className="form-control"
                       value={menuItem.quantity}
@@ -156,11 +160,12 @@ const EditIceCream = ({ match, history }) => {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label className="control-label col-sm-4" htmlFor="">
+                  <label className="control-label col-sm-4" htmlFor={priceId}>
                     Price :
                   </label>
                   <div className="col-sm-8">
                     <input
+                      id={priceId}
                       type="number"
                       name="price"
                       step="0.01"
@@ -181,7 +186,7 @@ const EditIceCream = ({ match, history }) => {
           </div>
         </div>
       )}
-    </main>
+    </Main>
   );
 };
 
