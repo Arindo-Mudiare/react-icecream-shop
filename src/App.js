@@ -15,8 +15,10 @@ import {
 const App = () => {
   return (
     <Router>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Header />
-
       <Switch>
         <Route path="/" component={Menu} exact />
         <Route path="/menu-items/:menuItemId" component={EditIceCream} />

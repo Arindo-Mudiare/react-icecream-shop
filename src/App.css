@@ -173,3 +173,24 @@ textarea {
 .img-smol {
   size: 40%;
 }
+
+.skip-link {
+  padding: 6px;
+  position: absolute;
+  top: -40px;
+  left: 0px;
+  color: red;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-bottom-right-radius: 8px;
+  background: #5c4268;
+  transform: top 1s ease-out;
+}
+
+.skip-link:focus {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  outline-color: transparent;
+  transition: top 0.1s ease-in;
+}
