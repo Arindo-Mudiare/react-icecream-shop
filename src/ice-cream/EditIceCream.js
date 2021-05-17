@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import IceCreamImage from './IceCreamImage';
 import useUniqueIds from '../hooks/useUniqueIds';
 import Main from '../structure/Main';
+import {
+  validatePrice,
+  validateDescription,
+  validateQuantity,
+} from '../utils/validator';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EditIceCream = ({ match, history }) => {
@@ -79,6 +84,7 @@ const EditIceCream = ({ match, history }) => {
       quantity: parseInt(quantity),
       description,
     };
+
     putMenuItem(submitItem).then(() => {
       history.push('/', { focus: true });
     });
