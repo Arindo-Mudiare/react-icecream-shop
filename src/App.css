@@ -194,3 +194,9 @@ textarea {
   outline-color: transparent;
   transition: top 0.1s ease-in;
 }
+.error {
+  color: red;
+}
+.error-wrapper {
+  color: red;
+}
