@@ -23,12 +23,6 @@ const Menu = ({ history }) => {
     };
   }, []);
 
-  const onItemClickHandler = to => {
-    history.push(to, { focus: true });
-  };
-  const onLinkClickHandler = e => {
-    e.stopPropagation();
-  };
 
   return (
     <Main headingText="Rock your taste buds with one of these">
@@ -42,35 +36,7 @@ const Menu = ({ history }) => {
           {menu.map(
             ({ id, iceCream, price, description, inStock, quantity }) => (
               <li className="cards_item" key={id.toString()}>
-                <section
-                  className="card"
-                  onClick={() => {
-                    onItemClickHandler(`/menu-items/${id.toString()}`);
-                  }}
-                >
-                  <div className="card_image">
-                    <IceCreamImage iceCreamId={iceCream.id} />
-                  </div>
-                  <div className="card_content">
-                    <h3 className="card_title">
-                      <FocusLink
-                        to={`/menu-items/${id.toString()}`}
-                        onClick={onLinkClickHandler}
-                      >
-                        {iceCream.name}
-                      </FocusLink>
-                    </h3>
-                    <div className="card_text">
-                      <p className="price">{`$${price.toFixed(2)}`}</p>
-                      <p className={`stock${inStock ? '' : ' out'}`}>
-                        {inStock
-                          ? `${quantity} in stock`
-                          : `Currently out of stock!!`}
-                      </p>
-                      <p className="description">{description}</p>
-                    </div>
-                  </div>
-                </section>
+                
               </li>
             )
           )}
